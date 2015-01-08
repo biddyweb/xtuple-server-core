@@ -1,5 +1,4 @@
 var lib = require('xtuple-server-lib'),
-  exec = require('child_process').execSync,
   _ = require('lodash'),
   ip = require('ip'),
   format = require('string-format'),
@@ -73,7 +72,7 @@ var nginxSite = _.extend(exports, lib.task, /** @exports xtuple-server-nginx-sit
 
   /** @override */
   afterTask: function (options) {
-    exec('service nginx reload');
+    lib.util.runCmd('service nginx reload');
 
     if (/^install/.test(options.planName)) {
       options.report['xTuple Instance'] = { 
@@ -93,7 +92,7 @@ var nginxSite = _.extend(exports, lib.task, /** @exports xtuple-server-nginx-sit
       fs.readFileSync(options.nginx.siteTemplateFile).toString().format(options).trim()
     );
 
-    exec([ 'ln -s', options.nginx.availableSite, options.nginx.enabledSite ].join(' '));
+    lib.util.runCmd([ 'ln -s', options.nginx.availableSite, options.nginx.enabledSite ].join(' '));
   },
 
   /** @override */
@@ -102,7 +101,7 @@ var nginxSite = _.extend(exports, lib.task, /** @exports xtuple-server-nginx-sit
       fs.unlinkSync(options.nginx.enabledSite);
       fs.unlinkSync(options.nginx.availableSite);
 
-      exec('service nginx reload');
+      lib.util.runCmd('service nginx reload');
     }
   },
 
@@ -124,6 +123,6 @@ var nginxSite = _.extend(exports, lib.task, /** @exports xtuple-server-nginx-sit
     if (conf == newConf) return;
 
     fs.writeFileSync(file, conf);
-    exec('service nginx reload');
+    lib.util.runCmd('service nginx reload');
   }
 });

@@ -3,7 +3,6 @@ var lib = require('xtuple-server-lib'),
   _ = require('lodash'),
   semver = require('semver'),
   n = require('n-api'),
-  exec = require('child_process').execSync,
   path = require('path'),
   fs = require('fs');
 
@@ -156,13 +155,13 @@ _.extend(exports, lib.task, /** @exports xtuple-server-xt-database */ {
   
   // build all specified databases
   buildCore: function (options, db) {
-    exec(lib.util.getDatabaseBuildCommand(db, options));
+    lib.util.runCmd(lib.util.getDatabaseBuildCommand(db, options));
   },
 
   // install extensions specified by the edition
   buildExtensions: function (extensions, db, options) {
     _.each(extensions, function (ext) {
-      exec(lib.util.getExtensionBuildCommand(db, options, ext));
+      lib.util.runCmd(lib.util.getExtensionBuildCommand(db, options, ext));
     });
   }
 });

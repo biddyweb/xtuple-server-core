@@ -1,6 +1,5 @@
 var lib = require('xtuple-server-lib'),
   _ = require('lodash'),
-  exec = require('child_process').execSync,
   cp = require('cp'),
   fs = require('fs'),
   path = require('path');
@@ -79,7 +78,7 @@ _.extend(exports, lib.task, /** @exports xtuple-server-nginx-ssl */ {
     fs.chmodSync(options.nginx.outkey, '600');
     fs.chmodSync(options.nginx.outcrt, '600');
 
-    exec('chown -R '+ options.xt.name + ' ' + options.xt.ssldir);
+    lib.util.runCmd('chown -R '+ options.xt.name + ' ' + options.xt.ssldir);
   },
 
   /**
@@ -99,7 +98,7 @@ _.extend(exports, lib.task, /** @exports xtuple-server-nginx-ssl */ {
       ].join(' ');
 
     try {
-      exec(cmd);
+      lib.util.runCmd(cmd);
     }
     catch (e) {
       log.warn(e);
@@ -107,9 +106,9 @@ _.extend(exports, lib.task, /** @exports xtuple-server-nginx-ssl */ {
     }
 
     if (!_.isEmpty(options.xt.name)) {
-      exec('chown -R '+ options.xt.name + ' ' + path.dirname(options.nginx.outkey));
+      lib.util.runCmd('chown -R '+ options.xt.name + ' ' + path.dirname(options.nginx.outkey));
     }
-    exec('chmod -R u=rx ' + path.dirname(options.nginx.outkey));
+    lib.util.runCmd('chmod -R u=rx ' + path.dirname(options.nginx.outkey));
 
     return cmd;
   },
@@ -136,15 +135,15 @@ _.extend(exports, lib.task, /** @exports xtuple-server-nginx-ssl */ {
 
     // verify x509 certificate
     try { 
-      exec('openssl x509 -noout -in ' + outcrt);
+      lib.util.runCmd('openssl x509 -noout -in ' + outcrt);
     }
     catch (e) {
       log.warn(e);
       throw new Error('The provided .crt failed openssl x509 verify');
     }
 
-    var key_modulus = exec('openssl rsa -noout -modulus -in '+ outkey).toString().trim(),
-      crt_modulus = exec('openssl x509 -noout -modulus -in '+ outcrt).toString().trim();
+    var key_modulus = lib.util.runCmd('openssl rsa -noout -modulus -in '+ outkey).toString().trim(),
+      crt_modulus = lib.util.runCmd('openssl x509 -noout -modulus -in '+ outcrt).toString().trim();
 
     // perform modulus check
     if (key_modulus !== crt_modulus) {

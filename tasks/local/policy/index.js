@@ -1,5 +1,5 @@
 var lib = require('xtuple-server-lib'),
-  exec = require('child_process').execSync,
+  exec = lib.util.runCmd,
   _ = require('lodash'),
   path = require('path'),
   fs = require('fs');

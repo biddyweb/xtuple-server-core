@@ -1,5 +1,4 @@
 var lib = require('xtuple-server-lib'),
-  exec = require('child_process').execSync,
   forge = require('node-forge'),
   rimraf = require('rimraf'),
   _ = require('lodash'),
@@ -75,7 +74,7 @@ _.extend(exports, lib.task, /** @exports xtuple-server-xt-config */ {
     if (!fs.existsSync(options.xt.rand64file)) {
       fs.writeFileSync(
         options.xt.rand64file,
-        exec('head -c 64 /dev/urandom | base64 | sed "s/[=\\s]//g"').toString()
+        lib.util.runCmd('head -c 64 /dev/urandom | base64 | sed "s/[=\\s]//g"').toString()
       );
     }
 
@@ -97,9 +96,9 @@ _.extend(exports, lib.task, /** @exports xtuple-server-xt-config */ {
 
   /** @override */
   afterTask: function (options) {
-    exec([ 'chown', options.xt.name, options.xt.key256file ].join(' '));
-    exec([ 'chown', options.xt.name, options.xt.rand64file ].join(' '));
-    exec([ 'chown', options.xt.name, options.xt.configfile ].join(' '));
+    lib.util.runCmd([ 'chown', options.xt.name, options.xt.key256file ].join(' '));
+    lib.util.runCmd([ 'chown', options.xt.name, options.xt.rand64file ].join(' '));
+    lib.util.runCmd([ 'chown', options.xt.name, options.xt.configfile ].join(' '));
 
     fs.chmodSync(options.xt.key256file, '700');
     fs.chmodSync(options.xt.rand64file, '700');

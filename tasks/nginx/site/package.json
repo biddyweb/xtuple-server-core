@@ -1,6 +1,6 @@
 {
   "name": "xtuple-server-nginx-site",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "xTuple Server Task [nginx.site]: create the nginx site file for a new xTuple instance deployment",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "ip": "^0.3.0",
     "lodash": "^2.4.1",
     "string-format": "^0.2.1",
-    "xtuple-server-lib": "^1.0.0"
+    "xtuple-server-lib": "^1.1.0"
   },
   "devDependencies": {
     "mocha": "^1.20.0"

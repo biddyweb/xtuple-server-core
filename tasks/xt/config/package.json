@@ -1,6 +1,6 @@
 {
   "name": "xtuple-server-xt-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "xTuple Server Task [xt.config]: configure the xTuple web server",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "lodash": "^2.4.1",
     "node-forge": "^0.6.11",
     "rimraf": "^2.2.8",
-    "xtuple-server-lib": "^1.0.0"
+    "xtuple-server-lib": "^1.1.0"
   },
   "devDependencies": {
     "mocha": "^1.20.0"

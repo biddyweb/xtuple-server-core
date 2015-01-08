@@ -1,6 +1,6 @@
 {
   "name": "xtuple-server-local-policy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "xTuple Server Task dev.policy: setup development access policy",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,7 @@
   "homepage": "https://github.com/xtuple/xtuple-server",
   "dependencies": {
     "lodash": "^2.4.1",
-    "xtuple-server-lib": "^1.0.0"
+    "xtuple-server-lib": "^1.1.0"
   },
   "devDependencies": {
     "mocha": "^1.20.0"

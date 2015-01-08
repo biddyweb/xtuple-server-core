@@ -1,6 +1,6 @@
 {
   "name": "xtuple-server-xt-database",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "xTuple Server Task [xt.database]: build an xTuple database",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "lodash": "^2.4.1",
     "mkdirp": "^0.5.0",
     "rimraf": "^2.2.8",
-    "xtuple-server-lib": "^1.0.0"
+    "xtuple-server-lib": "^1.1.0"
   },
   "devDependencies": {
     "mocha": "^1.20.0"
