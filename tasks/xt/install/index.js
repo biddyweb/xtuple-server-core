@@ -81,6 +81,12 @@ var xtInstall = _.extend(exports, lib.task, /** @exports xtuple-server-xt-instal
       if (_.isEmpty(options.xt.nodeVersion)) {
         lib.util.resolveNodeVersion(options, clonePath);
       }
+      log.http('xt-install', 'updating node version... please note that there is a known bug ' +
+        'in this command that sometimes causes console output to disappear. If you have been ' +
+        'staring at this message for ten minutes, do not worry! The install has probably ' +
+        'completed successfully. Press enter to return to the command prompt and look in the ' +
+        'xtuple-server-report.log file to find your authentication credentials and anything ' +
+        'else about the install that you might be interested in.');
       n(options.xt.nodeVersion);
       log.http('xt-install', 'installing npm modules...');
       lib.util.runCmd([ 'cd', clonePath,

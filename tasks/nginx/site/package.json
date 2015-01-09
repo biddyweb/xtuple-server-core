@@ -1,6 +1,6 @@
 {
   "name": "xtuple-server-nginx-site",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "xTuple Server Task [nginx.site]: create the nginx site file for a new xTuple instance deployment",
   "main": "index.js",
   "scripts": {
