@@ -25,7 +25,7 @@ after_failure:
 
 deploy:
   provider: npm
-  email: me@traviswebb.com
+  email: shackbarth@xtuple.com
   api_key:
     secure: "Dg+WqvgoTUf4Cm7JnbcThsjuvnuKPvxqy2SPZMDmgP1goYW64LvSXOa+LcVz2Pof/CX78922oUa3S+FWJ1erzIsFaMbiBP9arEK1tM1V89IMkwwv6rMhMHLGDHQSelal6N3SI5yplPWXtQux6vVEyDWUzGQ4+KWtdnHd/c2vIVE="
   on:
