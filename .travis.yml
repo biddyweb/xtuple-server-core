@@ -7,6 +7,8 @@ before_install:
   - n stable
   - npm install
   - cd ..
+  - bash npmLinkTasks.sh
+
 
 install:
   - n 0.11.13
