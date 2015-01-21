@@ -61,7 +61,7 @@ var xtInstall = _.extend(exports, lib.task, /** @exports xtuple-server-xt-instal
     _.each(lib.util.getRepositoryList(options), function (repo) {
       var clonePath   = path.resolve(options.xt.dist, repo),
           deployPath  = path.resolve(options.xt.userdist, repo),
-          gitVersion  = options.xt.gitVersions || 'master';
+          gitVersion  = options.xt.gitVersion || 'master';
 
       // preserve dev environments, create or replace non-dev environments
       if (fs.existsSync(clonePath) && options.planName !== 'install-dev') {

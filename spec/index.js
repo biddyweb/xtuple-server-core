@@ -49,6 +49,7 @@ describe('xTuple Server', function () {
     });
 
     describe('@uninstall-dev', function () {
+      this.timeout(60 * 1000); // 1 minute
       it('should do something', function () {
         this.child = proc.execSync(
           // local-workspace path relative to ../

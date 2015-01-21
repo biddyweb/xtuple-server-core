@@ -64,6 +64,13 @@ function executePlan (plan, options) {
     });
 }
 
+if(!exec) {
+  log.error("Cannot find node's execSync function. Make sure that you are running node 0.11!");
+  log.error("$ node -v");
+  log.error("$ n 0.11.13");
+
+  process.exit(1);
+}
 if (exec('id -u', { stdio: 'pipe' }).toString().indexOf('0') !== 0) {
   log.error('access denied', 'This tool must be run with sudo');
   process.exit(1);
