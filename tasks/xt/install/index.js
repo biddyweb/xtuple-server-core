@@ -89,7 +89,9 @@ var xtInstall = _.extend(exports, lib.task, /** @exports xtuple-server-xt-instal
         'else about the install that you might be interested in.');
       n(options.xt.nodeVersion);
       log.http('xt-install', 'installing npm modules...');
-      lib.util.runCmd('cd ' + clonePath + ' && /usr/local/bin/npm install --unsafe-perm');
+      lib.util.runCmd([ 'cd', clonePath,
+                        '&& /usr/local/bin/npm install --unsafe-perm' ],
+                      { retry: 2 });
 
       if (!fs.existsSync(deployPath)) {
         mkdirp.sync(deployPath);

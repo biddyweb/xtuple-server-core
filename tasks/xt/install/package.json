@@ -1,6 +1,6 @@
 {
   "name": "xtuple-server-xt-install",
-  "version": "0.9.71",
+  "version": "0.9.72",
   "description": "xTuple Server Task [xt.install]: clone and install the xTuple source",
   "main": "index.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "mkdirp": "^0.5.0",
     "n-api": "^1.2.20",
     "rimraf": "^2.2.8",
-    "xtuple-server-lib": "^1.1.0"
+    "xtuple-server-lib": "^1.2.0"
   },
   "devDependencies": {
     "mocha": "^1.20.0"
