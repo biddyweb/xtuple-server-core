@@ -3,6 +3,7 @@
 set -o pipefail
 
 logfile=$(pwd)/bootstrap.log
+REQNODEV=v0.11.13
 
 install_debian () {
   log "Checking Operating System..."
@@ -94,7 +95,7 @@ install_openrpt() {
     [ -d $WORKINGDIR ] || mkdir -p $WORKINGDIR || die "Couldn't mkdir $WORKINGDIR"
     cd $WORKINGDIR                             || die "Couldn't cd $WORKINGDIR"
 
-    log "building OpenRPT from source:-("
+    log "preparing to build OpenRPT from source:-("
     rm -rf openrpt
     git clone -q https://github.com/xtuple/openrpt.git |& \
                                     tee -a $logfile || die "Can't clone openrpt"
@@ -103,12 +104,12 @@ install_openrpt() {
     cd openrpt                                      || die "Can't cd openrpt"
     OPENRPT_VER=master #TODO: OPENRPT_VER=`latest stable release`
     git checkout -q $OPENRPT_VER |& tee -a $logfile || die "Can't checkout openrpt"
+    log "Starting OpenRPT build (this will take a few minutes)..."
     qmake                        |& tee -a $logfile || die "Can't qmake openrpt"
-  # make -j $[2 * $(nproc)] > /dev/null |& tee -a $logfile || die "Can't make openrpt"
-    make                    > /dev/null |& tee -a $logfile || die "Can't make openrpt"
+    make > /dev/null             |& tee -a $logfile || die "Can't make openrpt"
     mkdir -p /usr/local/bin                         || die "Can't make /usr/local/bin"
     mkdir -p /usr/local/lib                         || die "Can't make /usr/local/lib"
-    tar cf - bin lib | (cd /usr/local ; tar xf -)   || die "Can't install OpenRPT"
+    tar cf - bin lib | tar xf - -C /usr/local       || die "Can't install OpenRPT"
     ldconfig                     |& tee -a $logfile || die "ldconfig failed"
   fi
 
@@ -153,8 +154,10 @@ setup () {
 }
 
 log() {
-  echo -e "[xtuple] $@"
-  echo -e "[xtuple] $@" >> $logfile
+  local DATE=$(date +%H:%M:%S)
+  local NODEV=$(node --version 2>/dev/null)
+  echo -e "[xtuple $DATE $NODEV] $@"
+  echo -e "[xtuple $DATE $NODEV] $@" >> $logfile
 }
 die() {
   TRAPMSG="$@"
@@ -190,6 +193,12 @@ else
   log "apt-get not found."
   exit 1
 fi
+
+if [ $(node --version) != $REQNODEV ] ; then
+  log "Switching node from version $(node --version) to $REQNODEV"
+  n $REQNODEV
+fi
+
 
 log "Done! You now have yourself a bona fide xTuple Server."
 log "We recommend that you reboot the machine now"
