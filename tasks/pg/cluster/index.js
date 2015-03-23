@@ -53,6 +53,7 @@ _.extend(exports, lib.task, /** @exports cluster */ {
       options.report['Postgres Instance'] = {
         'Cluster Name': options.pg.cluster.name,
         'Port Number': options.pg.cluster.port,
+        'Database Names': _.pluck(options.xt.database.list, 'dbname').join(', '),
       };
     }
   },
