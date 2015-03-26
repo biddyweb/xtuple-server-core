@@ -4,7 +4,7 @@ before_install:
   - sudo bash bootstrap.sh
   - git clone https://github.com/xtuple/xtuple.git --recursive
   - cd xtuple
-  - n stable
+  - n `node ../lib/clientNode.js`
   - npm install
   - cd ..
 
